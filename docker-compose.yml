@@ -1,0 +1,24 @@
+services:
+
+  ed-mongodb:
+    build:
+      context: ./mongodb/
+      dockerfile: Dockerfile
+      args:
+        USERNAME: root
+        PASSWORD: passroot
+    restart: unless-stopped
+    container_name: ed-mongodb
+    hostname: ed-mongodb
+    networks:
+      default:
+        ipv4_address: 172.30.0.2
+
+networks:
+  default:
+    name: ed-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/24
